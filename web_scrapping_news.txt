@@ -1,6 +1,0 @@
-
-https://zzhu17.medium.com/web-scraping-yahoo-finance-news-a18f9b20ee8a
-
-https://news.yahoo.com/ - label as exclusion
-https://finance.yahoo.com/ - label as exclusion
-https://finance.yahoo.com/topic/crypto - label as inclusion
