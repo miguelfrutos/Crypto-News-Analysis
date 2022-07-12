@@ -43,7 +43,7 @@ def predict():
     df = df['title']
 
     # ADAPTING INPUTS
-
+    # Tokenize
     tokens_df = tokenizer.batch_encode_plus(
         df.tolist(),
         max_length = max_seq_len,
@@ -52,6 +52,7 @@ def predict():
         return_token_type_ids=False
     )
 
+    #Seq and Mask tensors
     val_seq = torch.tensor(tokens_df['input_ids'])
     val_mask = torch.tensor(tokens_df['attention_mask'])
     
@@ -66,7 +67,7 @@ def predict():
     with torch.no_grad():
         logits = model(val_seq, val_mask)
         probs = F.softmax(logits, dim=1) 
-    lista.append(probs)
+    lista_pred.append(probs)
     
     # SENTIMENT
     #load weights of best model
@@ -75,7 +76,7 @@ def predict():
     with torch.no_grad():
         logits = model(val_seq, val_mask)
         probs = F.softmax(logits, dim=1) 
-    lista.append(probs)
+    lista_pred.append(probs)
     
     # STRENGHT
     #load weights of best model
@@ -84,9 +85,7 @@ def predict():
     with torch.no_grad():
         logits = model(val_seq, val_mask)
         probs = F.softmax(logits, dim=1) 
-    lista.append(probs)
-
-
+    lista_pred.append(probs)
 
     #rendering the output in the index.html file
     return render_template('index.html', prediction_text=lista_pred)
