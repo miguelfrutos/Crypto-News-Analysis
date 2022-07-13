@@ -5,10 +5,39 @@ Created on Tue Jul 12 02:17:51 2022
 @author: jpthoma
 """
 
-from flask import Flask,render_template
 import pandas as pd
 from gdeltdoc import GdeltDoc, Filters
 from datetime import date, timedelta, datetime
+from transformers import  BertTokenizerFast
+import torch
+import torch.nn as nn
+#!pip install gdeltdoc
+#!pip install transformers
+#pip install selenium
+
+class BERT_Arch(nn.Module):
+
+    def __init__(self, bert):
+      
+      super(BERT_Arch, self).__init__()
+
+      self.bert = bert 
+      
+      # dropout layer
+      self.dropout = nn.Dropout(0.1)
+      
+      # relu activation function
+      self.relu =  nn.ReLU()
+
+      # dense layer 1
+      self.fc1 = nn.Linear(768,512)
+      
+      # dense layer 2 (Output layer)
+      self.fc2 = nn.Linear(512,2)
+
+      #softmax activation function
+      self.softmax = nn.LogSoftmax(dim=1)
+
 
 app = Flask(__name__,template_folder="templates")
 
@@ -23,11 +52,9 @@ def predict():
     # INGESTION FROM GDELT
     ## Select the period to ingest
     currenday = date.today()- timedelta(days=30)
-
-    daybefore = currenday - timedelta(days=1)
+    daybefore = currenday - timedelta(days=7)
     start_date = daybefore.strftime("%Y-%m-%d")
     end_date = currenday.strftime("%Y-%m-%d")
-    start_date,end_date
     
     # Filtering the period
     f = Filters(keyword='bitcoin', # HERE THE FILTER
@@ -43,10 +70,15 @@ def predict():
     df = df['title']
 
     # ADAPTING INPUTS
+
+    # Load the BERT tokenizer
+    # import BERT-base pretrained model
+    bert = AutoModel.from_pretrained('ProsusAI/finbert')
+    tokenizer = BertTokenizerFast.from_pretrained('ProsusAI/finbert')
     # Tokenize
     tokens_df = tokenizer.batch_encode_plus(
         df.tolist(),
-        max_length = max_seq_len,
+        max_length = 40,
         pad_to_max_length=True,
         truncation=True,
         return_token_type_ids=False
