@@ -1,7 +1,7 @@
 # Crypto_Curated_Database
 
 
-[Overview](assets/Overview.png)
+![Overview](assets/overview.png)
 
 
 
