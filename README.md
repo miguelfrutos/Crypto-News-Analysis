@@ -27,7 +27,9 @@ News Impact on Stock Market (Rule of thumb):
 - (-2 days) before the news are published due to privilege information or information leaks
 - (+4 days) after the news are published
 
-Mean of the crypto volatility through these days to see if we have an Abnormal or Normal return
+Mean of the crypto volatility through these days to see if we have an Abnormal or Normal return.
+- Abnormal (1): Datapoint more than Two-std deviations of the sample distribution
+- Normal (0): Datapoint less than Two-std deviations of the sample distribution
 
 # Web/API
 
