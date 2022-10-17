@@ -9,7 +9,7 @@
 Define the Inclusion & Exclusion rule:
 - Labelled as Excluded (0): https://news.yahoo.com/
 - Labelled as Excluded (0): https://finance.yahoo.com/
-- Labelled as Included (0): https://finance.yahoo.com/topic/crypto
+- Labelled as Included (1): https://finance.yahoo.com/topic/crypto
 
 Retrain the FinBERT algorithm for Relevance Score
 
