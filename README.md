@@ -1,4 +1,4 @@
-# Crypto_Curated_Database
+# Crypto News Analysis
 
 
 ![Overview](assets/overview.png)
